@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=UTF-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Topic Comparison – Ṽed Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel=stylesheet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400..800&display=swap" rel=stylesheet>
+<link href="https://fonts.googleapis.com/css2?family=WDXL+Lubrifont+JP+N&family=WDXL+Lubrifont+SC&display=swap" rel=stylesheet>
+<link rel=stylesheet href=style.css>
+<link rel="shortcut icon" href=../favicon.png type=image/x-icon>
+</head>
+<body>
+<nav class=navbar>
+<div class=nav-container>
+<a href=#home class=nav-brand>Ṽed</a>
+<div class=menu-toggle id=menuToggle>
+<span></span>
+<span></span>
+<span></span>
+</div>
+<ul class=nav-menu id=navMenu>
+<li class=nav-item>
+<a href=../index.html class=nav-link>Home</a>
+</li>
+<li class="nav-item dropdown">
+<a href=# class=nav-link>Tools</a>
+<div class=dropdown-content>
+<a href=../Concept_Explainer/index.html class=dropdown-item>Concept Explainer</a>
+<a href=../Concept_Comparer/index.html class=dropdown-item>Concept Comparison</a>
+<a href=../quiz2/index.html class=dropdown-item>Quiz Generator</a>
+</div>
+</li>
+<li class=nav-item>
+<a href=../index.html#about class=nav-link>About</a>
+</li>
+<li class=nav-item>
+<a href=../index.html#contact class=nav-link>Contact</a>
+</li>
+</ul>
+</div>
+</nav>
+<div class=container>
+<h1>Compare Things with Ṽed</h1>
+<label for=topic1>First Topic</label>
+<input id=topic1 placeholder="e.g., Scalar" type="text">
+<label for=topic2>Second Topic</label>
+<input id=topic2 placeholder="e.g., Vector" type="text">
+<button onclick=generateComparison()>Compare Topics</button>
+<div id=output><p class=thinking>Comparison will appear here.</p></div>
+</div>
+<footer>
+<span>All credit for this tool goes to the Developer: <a href=https://anishbairagi.netlify.app/ target=_blank>Anish Bairagi</a></span>
+<br>
+<span>© All rights reserṼed.</span>
+</footer>
+<script src=script.js></script>
+<div id=website-banner style=display:none></div>
+</body>
+</html>

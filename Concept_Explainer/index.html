@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=UTF-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Ṽed – Concept Tutor</title>
+<link rel=preconnect href=https://fonts.googleapis.com>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400..800&display=swap" rel=stylesheet>
+<link href="https://fonts.googleapis.com/css2?family=WDXL+Lubrifont+JP+N&family=WDXL+Lubrifont+SC&display=swap" rel=stylesheet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel=stylesheet>
+<link rel=stylesheet href=style.css>
+<link rel="shortcut icon" href=../favicon.png type=image/x-icon>
+</head>
+<body>
+<nav class=navbar>
+<div class=nav-container>
+<a href=# class=nav-brand>Ṽed</a>
+<div class=menu-toggle id=menuToggle>
+<span></span>
+<span></span>
+<span></span>
+</div>
+<ul class=nav-menu id=navMenu>
+<li class=nav-item>
+<a href=../index.html class=nav-link>Home</a>
+</li>
+<li class="nav-item dropdown">
+<a href=# class=nav-link>Tools</a>
+<div class=dropdown-content>
+<a href=../Concept_Explainer/index.html class=dropdown-item>Concept Explainer</a>
+<a href=../Concept_Comparer/index.html class=dropdown-item>Concept Comparison</a>
+<a href=../quiz2/index.html class=dropdown-item>Quiz Generator</a>
+</div>
+</li>
+<li class=nav-item>
+<a href=../index.html#about class=nav-link>About</a>
+</li>
+<li class=nav-item>
+<a href=../index.html#contact class=nav-link>Contact</a>
+</li>
+</ul>
+</div>
+</nav>
+<div class=container>
+<h1>Learn concepts with Ṽed</h1>
+<p>Clarity Begins with Ṽed – Your Personal AI Concept Tutor</p>
+<label for=concept>What concept would you like explained?</label>
+<input id=concept placeholder="e.g., Quantum Computing, Machine Learning, Photosynthesis" type="text">
+<div class=row>
+<div>
+<label for=difficulty>Difficulty Level</label>
+<select id=difficulty>
+<option>Beginner</option>
+<option selected>Intermediate</option>
+<option>Advanced</option>
+</select>
+</div>
+<div>
+<label for=language>Preferred Language</label>
+<select id=language>
+<option value=English selected>English</option>
+<option value=Hinglish>Hinglish</option>
+<option value=Hindi>Hindi</option>
+</select>
+</div>
+</div>
+<div class=row>
+<div>
+<label for=format>Explanation Format</label>
+<select id=format>
+<option value=paragraph selected>Paragraph</option>
+<option value=points>Bullet Points</option>
+</select>
+</div>
+</div>
+<div class=slider-group>
+<label for=wordLimit>Word Limit: <span id=wordCount>300</span></label>
+<input type=range id=wordLimit min=50 max=500 step=50 value=300 onchange=chng(this.value)>
+</div>
+<div class=checkbox-group>
+<input type=checkbox id=examples>
+<label for=examples>Include examples in explanation</label>
+</div>
+<button onclick=generateExplanation()>Generate Explanation</button>
+<div id=output-container>
+<button id=copyBtn onclick=copyToClipboard()>Copy</button>
+<div id=output><strong>[Output will appear here]</strong></div>
+</div>
+</div>
+<footer style="background:#264a55;color:#fff;text-align:center;padding:1rem 0;margin-top:2rem;font-size:.95rem">
+© 2025 Ṽed – Concept Tutor. Made with ❤️ by <a href=https://anishbairagi.netlify.app/ target=_blank style=color:#a7f3d0;text-decoration:underline>Anish Bairagi</a>.
+</footer>
+<script src=script.js></script>
+<div id=website-banner style=display:none></div>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=UTF-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Ṽed – Quiz Generator</title>
+<link rel=preconnect href=https://fonts.googleapis.com>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel=stylesheet>
+<link rel=stylesheet href=style.css>
+<link rel="shortcut icon" href=../favicon.png type=image/x-icon>
+</head>
+<body>
+<nav class=navbar>
+<div class=nav-container>
+<a href=# class=nav-brand>Ṽed</a>
+<div class=menu-toggle id=menuToggle>
+<span></span>
+<span></span>
+<span></span>
+</div>
+<ul class=nav-menu id=navMenu>
+<li class=nav-item>
+<a href=../index.html class=nav-link>Home</a>
+</li>
+<li class="nav-item dropdown">
+<a href=# class=nav-link>Tools</a>
+<div class=dropdown-content>
+<a href=../Concept_Explainer/index.html class=dropdown-item>Concept Explainer</a>
+<a href=../Concept_Comparer/index.html class=dropdown-item>Concept Comparison</a>
+<a href=../quiz2/index.html class=dropdown-item>Quiz Generator</a>
+</div>
+</li>
+<li class=nav-item>
+<a href=../index.html#about class=nav-link>About</a>
+</li>
+<li class=nav-item>
+<a href=../index.html#contact class=nav-link>Contact</a>
+</li>
+</ul>
+</div>
+</nav>
+<div id=countdown-overlay class="countdown-overlay hidden">
+<div id=countdown-display class=countdown-number>3</div>
+</div>
+<div class=main-content>
+<div class=container>
+<div id=form-section class=form-section>
+<div class=header>
+<h1>Quiz Generator</h1>
+<p>Create and take personalized educational quizzes</p>
+</div>
+<form id=quiz-form>
+<div class=form-group>
+<label for=userName>Name</label>
+<input id=userName class=form-control required placeholder="Enter your full name">
+<div class=error-message id=userName-error></div>
+</div>
+<div class=form-group>
+<label for=topic>Topic</label>
+<input id=topic class=form-control required placeholder="Enter quiz topic (e.g., Mathematics, Science)">
+<div class=error-message id=topic-error></div>
+</div>
+<div class=form-group>
+<label for=standard>Standard</label>
+<select id=standard class=form-control required>
+<option value="">Select Class</option>
+<option value=6>Class 6</option>
+<option value=7>Class 7</option>
+<option value=8>Class 8</option>
+<option value=9>Class 9</option>
+<option value=10>Class 10</option>
+<option value=11>Class 11</option>
+<option value=12>Class 12</option>
+</select>
+<div class=error-message id=standard-error></div>
+</div>
+<div class=form-group>
+<label for=difficulty>Difficulty Level</label>
+<select id=difficulty class=form-control required>
+<option value="">Select Difficulty</option>
+<option value=easy>Easy</option>
+<option value=medium>Medium</option>
+<option value=hard>Hard</option>
+</select>
+<div class=error-message id=difficulty-error></div>
+</div>
+<div class=form-group>
+<label>Number of Questions per Type (Max 20 total)</label>
+<div class=question-counts>
+<div class=question-count-item>
+<label for=mcqCount>MCQ</label>
+<input type=number id=mcqCount class=form-control min=0 max=20 value=5 required>
+</div>
+<div class=question-count-item>
+<label for=trueFalseCount>True/False</label>
+<input type=number id=trueFalseCount class=form-control min=0 max=20 value=3 required>
+</div>
+<div class=question-count-item>
+<label for=oneWordCount>One-word</label>
+<input type=number id=oneWordCount class=form-control min=0 max=20 value=2 required>
+</div>
+</div>
+<div class=error-message id=questions-error></div>
+</div>
+<button type=submit class=btn id=start-quiz-btn>Start Quiz</button>
+</form>
+</div>
+<div id=quiz-section class=quiz-section>
+<div class=quiz-header>
+<h2 id=quiz-title>Quiz in Progress</h2>
+<div class=quiz-progress>
+<div class=quiz-progress-bar id=progress-bar></div>
+</div>
+<p id=quiz-info>Question <span id=current-question>1</span> of <span id=total-questions>10</span></p>
+</div>
+<div class=quiz-timer>
+<div class=timer-item>
+<div class=timer-label>Time Elapsed</div>
+<div class=timer-value id=elapsed-time>00:00</div>
+</div>
+<div class=timer-item>
+<div class=timer-label>Time Remaining</div>
+<div class=timer-value id=remaining-time>05:00</div>
+</div>
+</div>
+<div class=question-card id=question-card>
+<div class=question-number id=question-number>Question 1</div>
+<div class=question-text id=question-text>Loading question...</div>
+<div class=options id=question-options>
+</div>
+</div>
+<div class=navigation>
+<button type=button class="btn btn-secondary" id=prev-btn disabled>Previous</button>
+<button type=button class=btn id=next-btn>Next</button>
+<button type=button class=btn id=submit-quiz-btn style=display:none>Submit Quiz</button>
+</div>
+</div>
+<div id=results-section class=results-section>
+<div class=results-card>
+<div class=results-header>
+<div class=results-status id=results-status>Excellent Work!</div>
+<div class=results-name id=results-name>John Doe</div>
+<div class=results-subject id=results-subject>Mathematics Quiz - Class 10</div>
+</div>
+<div class=results-score id=final-score>85%</div>
+<div class=results-grade id=results-grade>Grade A</div>
+</div>
+<div class=results-details>
+<div class=results-detail-item>
+<span>Total Questions:</span>
+<span id=total-questions-result>10</span>
+</div>
+<div class=results-detail-item>
+<span>Correct Answers:</span>
+<span id=correct-answers-result>8</span>
+</div>
+<div class=results-detail-item>
+<span>Wrong Answers:</span>
+<span id=wrong-answers-result>2</span>
+</div>
+<div class=results-detail-item>
+<span>Score Percentage:</span>
+<span id=score-percentage-result>80%</span>
+</div>
+</div>
+<button type=button class=btn id=restart-btn>Take Another Quiz</button>
+<button type=button class=btn id=download-txt-btn style=margin-top:15px;background:linear-gradient(135deg,#27ae60,#2ecc71)>Download Result as Text File</button>
+</div>
+</div>
+</div>
+<div class=print-content id=print-content>
+<div class=print-header>
+<h1>Ṽed – Quiz Generator</h1>
+<h2 id=print-quiz-title>Quiz Results</h2>
+<p id=print-participant-info>Participant: [Name] | Topic: [Topic] | Class: [Standard] | Difficulty: [Level]</p>
+<p id=print-date>Date: [Date]</p>
+</div>
+<div class=print-section>
+<h3>Quiz Summary</h3>
+<div class=print-stats>
+<div class=print-stat-item>
+<strong>Total Questions</strong><br>
+<span id=print-total-questions>0</span>
+</div>
+<div class=print-stat-item>
+<strong>Correct Answers</strong><br>
+<span id=print-correct-answers>0</span>
+</div>
+<div class=print-stat-item>
+<strong>Wrong Answers</strong><br>
+<span id=print-wrong-answers>0</span>
+</div>
+<div class=print-stat-item>
+<strong>Final Score</strong><br>
+<span id=print-final-score>0%</span>
+</div>
+</div>
+</div>
+<div class=print-section>
+<h3>Detailed Question Review</h3>
+<div id=print-questions-list>
+</div>
+</div>
+</div>
+
+<script src=script.js></script>
+<div id=website-banner style=display:none></div>
+</body>
+</html>
