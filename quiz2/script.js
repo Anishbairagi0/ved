@@ -1,3 +1,139 @@
+(function() {
+  let currentBanner = null;
+
+  function createBanner(winner, topic, percentage) {
+    // Remove existing banner if any
+    if (currentBanner) {
+      hideBanner();
+    }
+
+    // Create new banner element
+    const banner = document.createElement('div');
+    banner.className = 'winner-banner';
+    banner.innerHTML = `
+      <div class="banner-content">
+        <p class="winner-message">Quiz Start&#11088;</p>
+        <p class="winner-message">Big shoutout to</p>
+        <p class="winner-name">${winner}</p>
+        <p class="game-name">You really rocked the ${topic} quiz with ${percentage}% Keep it up!</p>
+      </div>
+      <button class="close-banner">×</button>
+    `;
+
+    // Add to document
+    document.body.appendChild(banner);
+    currentBanner = banner;
+
+    // Add event listeners
+    const closeBtn = banner.querySelector('.close-banner');
+    closeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      hideBanner();
+    });
+
+    return banner;
+  }
+
+  function showBanner(winner, topic, percentage) {
+    const banner = createBanner(winner, topic, percentage);
+
+    // Force reflow then show
+    banner.offsetHeight;
+    banner.classList.add("show");
+    document.body.classList.add("banner-shown");
+
+    // Show tooltip after banner appears
+    setTimeout(() => {
+      showBannerTooltip();
+    }, 500);
+  }
+
+  function showBannerTooltip() {
+    const tooltip = document.createElement('div');
+    tooltip.className = 'banner-tooltip';
+    tooltip.innerHTML = 'Want to see your name here? Just score above 84.4%!';
+    tooltip.style.cssText = `
+      position: fixed;
+      top: 140px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      color: #333;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 1002;
+      opacity: 0;
+      transform: translateX(10px);
+      transition: all 0.3s ease;
+      max-width: 200px;
+      text-align: center;
+      border: 1px solid #e0e0e0;
+
+    `;
+
+    document.body.appendChild(tooltip);
+
+    // Animate in
+    setTimeout(() => {
+      tooltip.style.opacity = '1';
+      tooltip.style.transform = 'translateX(0)';
+    }, 100);
+
+    // Remove after 2 seconds
+    setTimeout(() => {
+      tooltip.style.opacity = '0';
+      tooltip.style.transform = 'translateX(10px)';
+      setTimeout(() => {
+        if (tooltip.parentNode) {
+          tooltip.parentNode.removeChild(tooltip);
+        }
+      }, 300);
+    }, 5000);
+  }
+
+  function hideBanner() {
+    if (currentBanner) {
+      currentBanner.classList.remove("show");
+      document.body.classList.remove("banner-shown");
+
+      // Remove banner after animation
+      setTimeout(() => {
+        if (currentBanner && currentBanner.parentNode) {
+          currentBanner.parentNode.removeChild(currentBanner);
+          currentBanner = null;
+        }
+      }, 400);
+    }
+  }
+
+  // Add escape key listener to close banner
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && currentBanner && currentBanner.classList.contains("show")) {
+      hideBanner();
+    }
+  });
+
+  fetch(
+    "https://opensheet.vercel.app/1AkEjmMgbF0zAX6hfWgm6_TYk-5gBqdWVltc_6er9SBA/Sheet1"
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Fetched data:", data);
+      if (data.length > 0 && data[0].showBanner === "TRUE") {
+        const winner = data[0].winner || "Anonymous";
+        const topic = data[0].topic || "Quiz";
+        const Percent = data[0].percentage || "NA";
+
+        // Show banner immediately after data loads correctly
+        showBanner(winner, topic, Percent);
+      }
+    })
+    .catch((err) => {
+      console.error("Failed to load banner data:", err);
+    });
+})();
 class QuizApp {
   constructor() {
     (this.currentSection = "form"),
@@ -51,36 +187,36 @@ class QuizApp {
   }
   validateQuestionCounts() {
     const e =
-        (parseInt(document.getElementById("mcqCount").value) || 0) +
-        (parseInt(document.getElementById("trueFalseCount").value) || 0) +
-        (parseInt(document.getElementById("oneWordCount").value) || 0),
+      (parseInt(document.getElementById("mcqCount").value) || 0) +
+      (parseInt(document.getElementById("trueFalseCount").value) || 0) +
+      (parseInt(document.getElementById("oneWordCount").value) || 0),
       t = document.getElementById("questions-error");
     return e > 20
       ? ((t.textContent = "Total questions cannot exceed 20."),
         (t.style.display = "block"),
         !1)
       : 0 === e
-      ? ((t.textContent = "At least one question is required."),
-        (t.style.display = "block"),
-        !1)
-      : ((t.style.display = "none"), !0);
+        ? ((t.textContent = "At least one question is required."),
+          (t.style.display = "block"),
+          !1)
+        : ((t.style.display = "none"), !0);
   }
   handleFormSubmission() {
     document.querySelectorAll(".error-message").forEach((e) => {
       e.style.display = "none";
     }),
       this.validateForm() &&
-        ((this.quizData = {
-          userName: document.getElementById("userName").value.trim(),
-          topic: document.getElementById("topic").value.trim(),
-          standard: document.getElementById("standard").value,
-          difficulty: document.getElementById("difficulty").value,
-          mcqCount: parseInt(document.getElementById("mcqCount").value) || 0,
-          trueFalseCount:
-            parseInt(document.getElementById("trueFalseCount").value) || 0,
-          oneWordCount:
-            parseInt(document.getElementById("oneWordCount").value) || 0,
-        }),
+      ((this.quizData = {
+        userName: document.getElementById("userName").value.trim(),
+        topic: document.getElementById("topic").value.trim(),
+        standard: document.getElementById("standard").value,
+        difficulty: document.getElementById("difficulty").value,
+        mcqCount: parseInt(document.getElementById("mcqCount").value) || 0,
+        trueFalseCount:
+          parseInt(document.getElementById("trueFalseCount").value) || 0,
+        oneWordCount:
+          parseInt(document.getElementById("oneWordCount").value) || 0,
+      }),
         this.startCountdownAnimation());
   }
   validateForm() {
@@ -91,8 +227,8 @@ class QuizApp {
           s = document.getElementById(t + "-error");
         n.value.trim() ||
           ((s.textContent = "This field is required."),
-          (s.style.display = "block"),
-          (e = !1));
+            (s.style.display = "block"),
+            (e = !1));
       }),
       this.validateQuestionCounts() || (e = !1),
       e
@@ -102,6 +238,24 @@ class QuizApp {
     const e = document.getElementById("countdown-overlay"),
       t = document.getElementById("countdown-display");
     e.classList.remove("hidden"), this.generateQuizQuestions();
+
+    // Add motivational text
+    const motivationalText = document.createElement('div');
+    motivationalText.style.cssText = `
+      position: absolute;
+      bottom: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 1.2rem;
+      text-align: center;
+      font-weight: 500;
+      opacity: 0.9;
+      max-width: 90%;
+    `;
+    motivationalText.innerHTML = '🏆 Get over 84.4% and your name will show up as a quiz star! 🌟';
+    e.appendChild(motivationalText);
+
     let n = 3;
     const s = setInterval(() => {
       n > 0
@@ -134,8 +288,8 @@ class QuizApp {
           let t = e[1].trim();
           t.endsWith("}") && (t = t.slice(0, -1)),
             t.startsWith('"') &&
-              t.endsWith('"') &&
-              (t = t.slice(1, -1).replace(/\\"/g, '"')),
+            t.endsWith('"') &&
+            (t = t.slice(1, -1).replace(/\\"/g, '"')),
             (s = t);
         }
       }
@@ -178,30 +332,30 @@ class QuizApp {
     const t = [];
     return (
       e.mcq &&
-        Array.isArray(e.mcq) &&
-        e.mcq.forEach((e) => {
-          const n = e.options ? e.options.indexOf(e.answer) : -1;
-          t.push({
-            type: "mcq",
-            question: e.question,
-            options: e.options,
-            correct: n >= 0 ? n : 0,
-          });
-        }),
+      Array.isArray(e.mcq) &&
+      e.mcq.forEach((e) => {
+        const n = e.options ? e.options.indexOf(e.answer) : -1;
+        t.push({
+          type: "mcq",
+          question: e.question,
+          options: e.options,
+          correct: n >= 0 ? n : 0,
+        });
+      }),
       e.trueFalse &&
-        Array.isArray(e.trueFalse) &&
-        e.trueFalse.forEach((e) => {
-          t.push({
-            type: "trueFalse",
-            question: e.question,
-            correct: "true" === e.answer.toLowerCase(),
-          });
-        }),
+      Array.isArray(e.trueFalse) &&
+      e.trueFalse.forEach((e) => {
+        t.push({
+          type: "trueFalse",
+          question: e.question,
+          correct: "true" === e.answer.toLowerCase(),
+        });
+      }),
       e.oneWord &&
-        Array.isArray(e.oneWord) &&
-        e.oneWord.forEach((e) => {
-          t.push({ type: "oneWord", question: e.question, correct: e.answer });
-        }),
+      Array.isArray(e.oneWord) &&
+      e.oneWord.forEach((e) => {
+        t.push({ type: "oneWord", question: e.question, correct: e.answer });
+      }),
       t
     );
   }
@@ -221,11 +375,11 @@ class QuizApp {
     let n = "Unable to generate quiz questions. ";
     e.message.includes("Failed to fetch")
       ? (n =
-          "Failed to connect to AI service. Please check your connection and try again.")
+        "Failed to connect to AI service. Please check your connection and try again.")
       : e.message.includes("Invalid response") ||
         e.message.includes("Could not extract")
-      ? (n = "ReceiṼed invalid response from AI service. Please try again.")
-      : (n += "Please try again or check your connection."),
+        ? (n = "ReceiṼed invalid response from AI service. Please try again.")
+        : (n += "Please try again or check your connection."),
       alert(n),
       (document.getElementById("form-section").style.display = "block");
   }
@@ -261,17 +415,16 @@ class QuizApp {
     const e = this.questions[this.currentQuestionIndex];
     (document.getElementById("current-question").textContent =
       this.currentQuestionIndex + 1),
-      (document.getElementById("question-number").textContent = `Question ${
-        this.currentQuestionIndex + 1
-      }`),
+      (document.getElementById("question-number").textContent = `Question ${this.currentQuestionIndex + 1
+        }`),
       (document.getElementById("question-text").textContent = e.question);
     const t = document.getElementById("question-options");
     (t.innerHTML = ""),
       "mcq" === e.type
         ? this.renderMCQOptions(e, t)
         : "trueFalse" === e.type
-        ? this.renderTrueFalseOptions(e, t)
-        : "oneWord" === e.type && this.renderOneWordInput(e, t),
+          ? this.renderTrueFalseOptions(e, t)
+          : "oneWord" === e.type && this.renderOneWordInput(e, t),
       this.updateProgressBar();
   }
   renderMCQOptions(e, t) {
@@ -284,7 +437,7 @@ class QuizApp {
         (o.value = n),
         (o.id = `option-${n}`),
         this.userAnswers[this.currentQuestionIndex] === n &&
-          ((o.checked = !0), s.classList.add("selected"));
+        ((o.checked = !0), s.classList.add("selected"));
       const i = document.createElement("label");
       (i.htmlFor = `option-${n}`),
         (i.textContent = e),
@@ -313,7 +466,7 @@ class QuizApp {
         (o.value = 0 === n),
         (o.id = `tf-option-${n}`),
         this.userAnswers[this.currentQuestionIndex] === (0 === n) &&
-          ((o.checked = !0), s.classList.add("selected"));
+        ((o.checked = !0), s.classList.add("selected"));
       const i = document.createElement("label");
       (i.htmlFor = `tf-option-${n}`),
         (i.textContent = e),
@@ -342,7 +495,7 @@ class QuizApp {
       (s.style.fontSize = "1.1rem"),
       (s.style.textAlign = "center"),
       null !== this.userAnswers[this.currentQuestionIndex] &&
-        (s.value = this.userAnswers[this.currentQuestionIndex]),
+      (s.value = this.userAnswers[this.currentQuestionIndex]),
       s.addEventListener("input", () => {
         this.userAnswers[this.currentQuestionIndex] = s.value.trim();
       }),
@@ -366,14 +519,14 @@ class QuizApp {
   previousQuestion() {
     this.currentQuestionIndex > 0 &&
       (this.currentQuestionIndex--,
-      this.displayCurrentQuestion(),
-      this.updateNavigationButtons());
+        this.displayCurrentQuestion(),
+        this.updateNavigationButtons());
   }
   nextQuestion() {
     this.currentQuestionIndex < this.questions.length - 1 &&
       (this.currentQuestionIndex++,
-      this.displayCurrentQuestion(),
-      this.updateNavigationButtons());
+        this.displayCurrentQuestion(),
+        this.updateNavigationButtons());
   }
   submitQuiz() {
     this.stopTimer(), this.calculateScore(), this.showResultsSection();
@@ -385,9 +538,9 @@ class QuizApp {
       "mcq" === t.type || "trueFalse" === t.type
         ? s === t.correct && e++
         : "oneWord" === t.type &&
-          s &&
-          s.toLowerCase() === t.correct.toLowerCase() &&
-          e++;
+        s &&
+        s.toLowerCase() === t.correct.toLowerCase() &&
+        e++;
     }),
       (this.score = {
         correct: e,
@@ -397,6 +550,7 @@ class QuizApp {
       });
   }
   showResultsSection() {
+
     (document.getElementById("quiz-section").style.display = "none"),
       (document.getElementById("results-section").style.display = "block"),
       document.getElementById("results-section").classList.add("fade-in");
@@ -429,49 +583,56 @@ class QuizApp {
     this.score.percentage >= 90
       ? (s.style.background = "linear-gradient(135deg, #27ae60, #2ecc71)")
       : this.score.percentage >= 75
-      ? (s.style.background = "linear-gradient(135deg, #3498db, #2980b9)")
-      : this.score.percentage >= 60
-      ? (s.style.background = "linear-gradient(135deg, #f39c12, #e67e22)")
-      : this.score.percentage >= 33
-      ? (s.style.background = "linear-gradient(135deg, #f1c40f, #f39c12)")
-      : (s.style.background = "linear-gradient(135deg, #e74c3c, #c0392b)");
+        ? (s.style.background = "linear-gradient(135deg, #3498db, #2980b9)")
+        : this.score.percentage >= 60
+          ? (s.style.background = "linear-gradient(135deg, #f39c12, #e67e22)")
+          : this.score.percentage >= 33
+            ? (s.style.background = "linear-gradient(135deg, #f1c40f, #f39c12)")
+            : (s.style.background = "linear-gradient(135deg, #e74c3c, #c0392b)");
+
+    // Check if user scored above 84.4% to show shoutout option
+    if (this.score.percentage > 84.4) {
+      setTimeout(() => {
+        this.showShoutoutModal();
+      }, 1000);
+    }
   }
   calculateGradeAndStatus(e) {
     return e >= 90
       ? {
-          status: "Outstanding Performance!",
-          grade: "Grade A+",
-          message: "Exceptional work! You've mastered this topic.",
-        }
+        status: "Outstanding Performance!",
+        grade: "Grade A+",
+        message: "Exceptional work! You've mastered this topic.",
+      }
       : e >= 75
-      ? {
+        ? {
           status: "Excellent Work!",
           grade: "Grade A",
           message: "Great job! You have a strong understanding.",
         }
-      : e >= 60
-      ? {
-          status: "Good Progress!",
-          grade: "Grade B",
-          message: "Well done! Keep practicing to improve further.",
-        }
-      : e >= 50
-      ? {
-          status: "Fair Attempt!",
-          grade: "Grade C",
-          message: "You're on the right track. Review and try again.",
-        }
-      : e >= 33
-      ? {
-          status: "Passed!",
-          grade: "Grade D",
-          message: "You passed! Consider reviewing the material.",
-        }
-      : {
-          status: "Need More Practice!",
-          grade: "Grade F",
-          message: "Don't give up! Review the topics and try again.",
-        };
+        : e >= 60
+          ? {
+            status: "Good Progress!",
+            grade: "Grade B",
+            message: "Well done! Keep practicing to improve further.",
+          }
+          : e >= 50
+            ? {
+              status: "Fair Attempt!",
+              grade: "Grade C",
+              message: "You're on the right track. Review and try again.",
+            }
+            : e >= 33
+              ? {
+                status: "Passed!",
+                grade: "Grade D",
+                message: "You passed! Consider reviewing the material.",
+              }
+              : {
+                status: "Need More Practice!",
+                grade: "Grade F",
+                message: "Don't give up! Review the topics and try again.",
+              };
   }
   startTimer() {
     (this.startTime = new Date()),
@@ -503,7 +664,7 @@ class QuizApp {
         ? r.classList.add("timer-warning")
         : r.classList.remove("timer-warning"),
       this.timeRemaining <= 0 &&
-        (this.stopTimer(),
+      (this.stopTimer(),
         alert("Time is up! Your quiz will be submitted automatically."),
         this.submitQuiz());
   }
@@ -523,95 +684,92 @@ class QuizApp {
       URL.revokeObjectURL(n);
   }
   generateTextFileContent() {
-  const e = new Date(),
-    t = e.toLocaleDateString(),
-    n = e.toLocaleTimeString();
-  let s = "";
-  s += "============================================================\n";
-  s += "                   VED – QUIZ GENERATOR                    \n"; // Replaced Ṽ with V
-  s += "                  * QUIZ RESULTS REPORT *                 \n"; // Replaced ✦ with *
-  s += "============================================================\n\n";
-  s += "STUDENT INFORMATION\n"; // Removed 👤
-  s += "------------------------------------------------------------\n";
-  s += `Name             : ${this.quizData.userName}\n`;
-  s += `Topic            : ${this.quizData.topic}\n`;
-  s += `Class/Standard   : ${this.quizData.standard}\n`;
-  s += `Difficulty Level : ${
-    this.quizData.difficulty.charAt(0).toUpperCase() +
-    this.quizData.difficulty.slice(1)
-  }\n`;
-  s += `Date             : ${t}\n`;
-  s += `Time             : ${n}\n\n`;
-  s += "QUIZ SUMMARY\n";
-  s += "------------------------------------------------------------\n";
-  s += `Total Questions  : ${this.score.total}\n`;
-  s += `Correct Answers  : ${this.score.correct}\n`;
-  s += `Wrong Answers    : ${this.score.wrong}\n`;
-  s += `Final Score      : ${this.score.percentage}%\n\n`;
-  s += "PERFORMANCE FEEDBACK\n";
-  s += "------------------------------------------------------------\n";
-  this.score.percentage >= 90
-    ? (s += "Excellent! Outstanding performance.\n")
-    : this.score.percentage >= 75
-    ? (s += "Very Good! Keep up the great work.\n")
-    : this.score.percentage >= 60
-    ? (s += "Good! Room for improvement.\n")
-    : (s += "Needs Improvement. Consider reviewing the topic.\n");
-  s += "\n";
-  s += "DETAILED QUESTION REVIEW\n";
-  s += "============================================================\n\n";
-  this.questions.forEach((e, t) => {
-    s += `Q${t + 1}. ${e.question}\n`;
-    const n = this.userAnswers[t];
-    let o = "",
-      i = "",
-      r = !1;
-    "mcq" === e.type
-      ? ((s += "Options:\n"),
-        e.options.forEach((t, o) => {
-          const i = o === e.correct ? " [Correct]" : "", // Replaced ✅
-            r = n === o ? " [Your Answer]" : "";
-          s += `  ${String.fromCharCode(65 + o)}. ${t}${i}${r}\n`;
-        }),
-        (o = null !== n ? e.options[n] : "No answer provided"),
-        (i = e.options[e.correct]),
-        (r = n === e.correct))
-      : "trueFalse" === e.type
-      ? ((s += "Options:\n"),
-        (s += `  True${!0 === e.correct ? " [Correct]" : ""}${
-          !0 === n ? " [Your Answer]" : ""
-        }\n`),
-        (s += `  False${!1 === e.correct ? " [Correct]" : ""}${
-          !1 === n ? " [Your Answer]" : ""
-        }\n\n`),
-        (o = null !== n ? (n ? "True" : "False") : "No answer provided"),
-        (i = e.correct ? "True" : "False"),
-        (r = n === e.correct))
-      : "oneWord" === e.type &&
-        ((o = n || "No answer provided"),
-        (i = e.correct),
-        (r = n && n.toLowerCase() === e.correct.toLowerCase()));
-    s += `Your Answer     : ${o}\n`;
-    s += `Correct Answer  : ${i}\n`;
-    s += `Result          : ${r ? "CORRECT" : "INCORRECT"}\n`; // Replaced ✓ and ✗
-    s += "------------------------------------------------------------\n\n";
-  });
-  const o = this.questions.filter((e) => "mcq" === e.type).length,
-    i = this.questions.filter((e) => "trueFalse" === e.type).length,
-    r = this.questions.filter((e) => "oneWord" === e.type).length;
-  s += "QUESTION TYPE BREAKDOWN\n";
-  s += "------------------------------------------------------------\n";
-  o > 0 && (s += `Multiple Choice Questions : ${o}\n`);
-  i > 0 && (s += `True/False Questions      : ${i}\n`);
-  r > 0 && (s += `One-word Questions        : ${r}\n`);
-  s += "\n";
-  s += "============================================================\n";
-  s += "         Generated by VED – Quiz Generator\n"; // Ṽ replaced again
-  s += `              ${t} at ${n}\n`;
-  s += "        Developed with dedication by Anish Bairagi\n";
-  s += "============================================================\n";
-  return s;
-}
+    const e = new Date(),
+      t = e.toLocaleDateString(),
+      n = e.toLocaleTimeString();
+    let s = "";
+    s += "============================================================\n";
+    s += "                   VED – QUIZ GENERATOR                    \n"; // Replaced Ṽ with V
+    s += "                  * QUIZ RESULTS REPORT *                 \n"; // Replaced ✦ with *
+    s += "============================================================\n\n";
+    s += "STUDENT INFORMATION\n"; // Removed 👤
+    s += "------------------------------------------------------------\n";
+    s += `Name             : ${this.quizData.userName}\n`;
+    s += `Topic            : ${this.quizData.topic}\n`;
+    s += `Class/Standard   : ${this.quizData.standard}\n`;
+    s += `Difficulty Level : ${this.quizData.difficulty.charAt(0).toUpperCase() +
+      this.quizData.difficulty.slice(1)
+      }\n`;
+    s += `Date             : ${t}\n`;
+    s += `Time             : ${n}\n\n`;
+    s += "QUIZ SUMMARY\n";
+    s += "------------------------------------------------------------\n";
+    s += `Total Questions  : ${this.score.total}\n`;
+    s += `Correct Answers  : ${this.score.correct}\n`;
+    s += `Wrong Answers    : ${this.score.wrong}\n`;
+    s += `Final Score      : ${this.score.percentage}%\n\n`;
+    s += "PERFORMANCE FEEDBACK\n";
+    s += "------------------------------------------------------------\n";
+    this.score.percentage >= 90
+      ? (s += "Excellent! Outstanding performance.\n")
+      : this.score.percentage >= 75
+        ? (s += "Very Good! Keep up the great work.\n")
+        : this.score.percentage >= 60
+          ? (s += "Good! Room for improvement.\n")
+          : (s += "Needs Improvement. Consider reviewing the topic.\n");
+    s += "\n";
+    s += "DETAILED QUESTION REVIEW\n";
+    s += "============================================================\n\n";
+    this.questions.forEach((e, t) => {
+      s += `Q${t + 1}. ${e.question}\n`;
+      const n = this.userAnswers[t];
+      let o = "",
+        i = "",
+        r = !1;
+      "mcq" === e.type
+        ? ((s += "Options:\n"),
+          e.options.forEach((t, o) => {
+            const i = o === e.correct ? " [Correct]" : "", // Replaced ✅
+              r = n === o ? " [Your Answer]" : "";
+            s += `  ${String.fromCharCode(65 + o)}. ${t}${i}${r}\n`;
+          }),
+          (o = null !== n ? e.options[n] : "No answer provided"),
+          (i = e.options[e.correct]),
+          (r = n === e.correct))
+        : "trueFalse" === e.type
+          ? ((s += "Options:\n"),
+            (s += `  True${!0 === e.correct ? " [Correct]" : ""}${!0 === n ? " [Your Answer]" : ""
+              }\n`),
+            (s += `  False${!1 === e.correct ? " [Correct]" : ""}${!1 === n ? " [Your Answer]" : ""
+              }\n\n`),
+            (o = null !== n ? (n ? "True" : "False") : "No answer provided"),
+            (i = e.correct ? "True" : "False"),
+            (r = n === e.correct))
+          : "oneWord" === e.type &&
+          ((o = n || "No answer provided"),
+            (i = e.correct),
+            (r = n && n.toLowerCase() === e.correct.toLowerCase()));
+      s += `Your Answer     : ${o}\n`;
+      s += `Correct Answer  : ${i}\n`;
+      s += `Result          : ${r ? "CORRECT" : "INCORRECT"}\n`; // Replaced ✓ and ✗
+      s += "------------------------------------------------------------\n\n";
+    });
+    const o = this.questions.filter((e) => "mcq" === e.type).length,
+      i = this.questions.filter((e) => "trueFalse" === e.type).length,
+      r = this.questions.filter((e) => "oneWord" === e.type).length;
+    s += "QUESTION TYPE BREAKDOWN\n";
+    s += "------------------------------------------------------------\n";
+    o > 0 && (s += `Multiple Choice Questions : ${o}\n`);
+    i > 0 && (s += `True/False Questions      : ${i}\n`);
+    r > 0 && (s += `One-word Questions        : ${r}\n`);
+    s += "\n";
+    s += "============================================================\n";
+    s += "         Generated by VED – Quiz Generator\n"; // Ṽ replaced again
+    s += `              ${t} at ${n}\n`;
+    s += "        Developed with dedication by Anish Bairagi\n";
+    s += "============================================================\n";
+    return s;
+  }
 
   preparePrintContent() {
     document.getElementById("print-content");
@@ -649,13 +807,13 @@ class QuizApp {
             (c = t.options[t.correct]),
             (d = r === t.correct))
           : "trueFalse" === t.type
-          ? ((a = null !== r ? (r ? "True" : "False") : "No answer"),
-            (c = t.correct ? "True" : "False"),
-            (d = r === t.correct))
-          : "oneWord" === t.type &&
+            ? ((a = null !== r ? (r ? "True" : "False") : "No answer"),
+              (c = t.correct ? "True" : "False"),
+              (d = r === t.correct))
+            : "oneWord" === t.type &&
             ((a = r || "No answer"),
-            (c = t.correct),
-            (d = r && r.toLowerCase() === t.correct.toLowerCase()));
+              (c = t.correct),
+              (d = r && r.toLowerCase() === t.correct.toLowerCase()));
         const u = document.createElement("div");
         (u.className =
           "print-answer " + (d ? "print-correct" : "print-incorrect")),
@@ -703,6 +861,180 @@ class QuizApp {
       this.score.wrong,
       this.score.percentage,
       new Date().toISOString();
+  }
+
+  showShoutoutModal() {
+    // Create modal overlay
+    const modalOverlay = document.createElement('div');
+    modalOverlay.id = 'shoutout-modal-overlay';
+    modalOverlay.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      animation: fadeIn 0.3s ease-in;
+    `;
+
+    // Create modal content
+    const modalContent = document.createElement('div');
+    modalContent.style.cssText = `
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      animation: slideIn 0.3s ease-out;
+    `;
+
+    modalContent.innerHTML = `
+      <div style="margin-bottom: 25px;">
+        <h2 style="color: #27ae60; font-size: 1.8rem; margin-bottom: 10px;">🎉 Outstanding Performance!</h2>
+        <p style="color: #666; font-size: 1rem; margin-bottom: 15px;">
+          You scored ${this.score.percentage}%! 
+        </p>
+        <p style="color: #333; font-size: 1.1rem; font-weight: 500;">
+          Would you like to be featured in our shoutout banner as "${this.quizData.userName}"?
+        </p>
+      </div>
+      <div style="display: flex; gap: 10px; justify-content: center;">
+        <button id="shoutout-submit-btn" style="
+          background: linear-gradient(135deg, #27ae60, #2ecc71);
+          color: white;
+          border: none;
+          padding: 12px 20px;
+          border-radius: 8px;
+          cursor: pointer;
+          font-size: 1rem;
+          font-weight: 500;
+        ">Yes, Feature Me!</button>
+        <button id="shoutout-cancel-btn" style="
+          background: #95a5a6;
+          color: white;
+          border: none;
+          padding: 12px 20px;
+          border-radius: 8px;
+          cursor: pointer;
+          font-size: 1rem;
+          font-weight: 500;
+        ">No Thanks</button>
+      </div>
+    `;
+
+    modalOverlay.appendChild(modalContent);
+    document.body.appendChild(modalOverlay);
+
+    // Add event listeners
+    const submitBtn = document.getElementById('shoutout-submit-btn');
+    const cancelBtn = document.getElementById('shoutout-cancel-btn');
+
+    // Submit shoutout using the already provided name
+    submitBtn.addEventListener('click', () => {
+      this.submitShoutout(this.quizData.userName, modalOverlay);
+    });
+
+    // Cancel shoutout
+    cancelBtn.addEventListener('click', () => {
+      this.closeShoutoutModal(modalOverlay);
+    });
+
+    // Close on escape key
+    const escapeHandler = (e) => {
+      if (e.key === 'Escape') {
+        this.closeShoutoutModal(modalOverlay);
+        document.removeEventListener('keydown', escapeHandler);
+      }
+    };
+    document.addEventListener('keydown', escapeHandler);
+
+    // Close on overlay click
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) {
+        this.closeShoutoutModal(modalOverlay);
+      }
+    });
+  }
+
+  async submitShoutout(userName, modalOverlay) {
+    const submitBtn = document.getElementById('shoutout-submit-btn');
+    const originalText = submitBtn.textContent;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+
+    try {
+      const response = await fetch("https://hook.eu2.make.com/bn0xylyvsvqn0ljmvkon97lymaoyqka9", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: userName,
+          percentage: this.score.percentage,
+          topic: this.quizData.topic
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      this.showCongratulationsMessage(modalOverlay);
+
+    } catch (error) {
+      console.error("Error submitting shoutout:", error);
+      alert(`Error submitting shoutout: ${error.message}`);
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
+  }
+
+  showCongratulationsMessage(modalOverlay) {
+    // Update modal content to show congratulations
+    const modalContent = modalOverlay.querySelector('div');
+    modalContent.innerHTML = `
+      <div style="text-align: center;">
+        <div style="font-size: 4rem; margin-bottom: 20px;">🎉</div>
+        <h2 style="color: #27ae60; font-size: 2rem; margin-bottom: 15px;">Congratulations!</h2>
+        <p style="color: #333; font-size: 1.2rem; margin-bottom: 10px; font-weight: 500;">
+          Your achievement has been submitted!
+        </p>
+        <p style="color: #666; font-size: 1rem; margin-bottom: 25px;">
+          You might see your name in our shoutout banner soon. Keep up the excellent work!
+        </p>
+        <button onclick="this.closest('#shoutout-modal-overlay').remove()" style="
+          background: linear-gradient(135deg, #27ae60, #2ecc71);
+          color: white;
+          border: none;
+          padding: 12px 24px;
+          border-radius: 8px;
+          cursor: pointer;
+          font-size: 1rem;
+          font-weight: 500;
+        ">Awesome!</button>
+      </div>
+    `;
+
+    // Auto-close after 5 seconds
+    setTimeout(() => {
+      if (modalOverlay.parentNode) {
+        this.closeShoutoutModal(modalOverlay);
+      }
+    }, 5000);
+  }
+
+  closeShoutoutModal(modalOverlay) {
+    modalOverlay.style.opacity = '0';
+    setTimeout(() => {
+      if (modalOverlay.parentNode) {
+        modalOverlay.parentNode.removeChild(modalOverlay);
+      }
+    }, 300);
   }
 }
 document.addEventListener("DOMContentLoaded", () => {
