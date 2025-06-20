@@ -43,55 +43,10 @@
     banner.classList.add("show");
     document.body.classList.add("banner-shown");
 
-    // Show tooltip after banner appears
-    setTimeout(() => {
-      showBannerTooltip();
-    }, 500);
+    
   }
 
-  function showBannerTooltip() {
-    const tooltip = document.createElement('div');
-    tooltip.className = 'banner-tooltip';
-    tooltip.innerHTML = 'Want to see your name here? Just score above 84.4%!';
-    tooltip.style.cssText = `
-      position: fixed;
-      top: 140px;
-      right: 20px;
-      background: rgba(255, 255, 255, 0.95);
-      color: #333;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      z-index: 1002;
-      opacity: 0;
-      transform: translateX(10px);
-      transition: all 0.3s ease;
-      max-width: 200px;
-      text-align: center;
-      border: 1px solid #e0e0e0;
-
-    `;
-
-    document.body.appendChild(tooltip);
-
-    // Animate in
-    setTimeout(() => {
-      tooltip.style.opacity = '1';
-      tooltip.style.transform = 'translateX(0)';
-    }, 100);
-
-    // Remove after 2 seconds
-    setTimeout(() => {
-      tooltip.style.opacity = '0';
-      tooltip.style.transform = 'translateX(10px)';
-      setTimeout(() => {
-        if (tooltip.parentNode) {
-          tooltip.parentNode.removeChild(tooltip);
-        }
-      }, 300);
-    }, 5000);
-  }
+  
 
   function hideBanner() {
     if (currentBanner) {
