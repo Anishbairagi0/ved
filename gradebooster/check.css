@@ -1,0 +1,771 @@
+/* Check My Answer Tool Specific Styles */
+
+/* Check Mode Body Styling */
+.check-mode {
+  background: linear-gradient(135deg, #007bff 0%, #74c0fc 100%);
+  padding-top: 80px;
+}
+
+/* Check Main Box */
+.check-main-box {
+  border: 2px solid rgba(0, 123, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 123, 255, 0.15);
+  margin-bottom: 3rem;
+  padding: 2.5rem;
+}
+
+/* Check Form Styling */
+.check-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.check-form .form-group {
+  margin-bottom: 0;
+}
+
+.check-form .form-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #2c3e50;
+}
+
+/* Check Heading */
+.check-heading {
+  color: #1F2937;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  padding: 1.5rem 2rem;
+  border: 3px solid transparent;
+  border-radius: 1.25rem;
+  background: white;
+  border-image: linear-gradient(135deg, #007bff, #74c0fc) 1;
+  box-shadow: 0 8px 25px rgba(0, 123, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.check-heading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 123, 255, 0.05), rgba(116, 192, 252, 0.05));
+  border-radius: 1rem;
+  z-index: -1;
+}
+
+.check-underline {
+  background: linear-gradient(135deg, #007bff, #74c0fc);
+  margin-bottom: 2.5rem;
+  width: 80px;
+  height: 4px;
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.4);
+}
+
+/* Check Form Elements */
+.check-textarea,
+.check-select {
+  padding: 1rem 1.25rem;
+  border: 2px solid #e3f2fd;
+  border-radius: 0.875rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+  min-height: 120px;
+  box-shadow: 0 3px 10px rgba(0, 123, 255, 0.08);
+  border-image: linear-gradient(135deg, #e3f2fd, #bbdefb) 1;
+}
+
+.check-textarea:hover,
+.check-select:hover {
+  border-color: #90caf9;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+.check-textarea:focus,
+.check-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1), 0 5px 20px rgba(0, 123, 255, 0.2);
+  outline: none;
+  border-image: linear-gradient(135deg, #007bff, #42a5f5) 1;
+  transform: translateY(-2px);
+}
+
+.check-textarea::placeholder {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+/* Check Button */
+.check-btn {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  padding: 1.25rem 2.5rem;
+  border: none;
+  border-radius: 0.875rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  margin-top: 1rem;
+  box-shadow: 0 4px 16px rgba(0, 123, 255, 0.2);
+}
+
+.check-btn:hover {
+  background: linear-gradient(135deg, #0056b3, #003d82);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+}
+
+.check-btn:active {
+  transform: translateY(0);
+}
+
+.check-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Check Output Section */
+.check-output-section {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Check Output Boxes */
+.check-output-box {
+  background: linear-gradient(135deg, #f8f9fa, #e3f2fd);
+  border: 1px solid rgba(0, 123, 255, 0.15);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.1);
+  margin-bottom: 2.5rem;
+  padding: 2rem;
+  border-radius: 1.25rem;
+  transition: all 0.3s ease;
+}
+
+.check-output-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 123, 255, 0.15);
+}
+
+.check-output-box .output-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(0, 123, 255, 0.1);
+}
+
+.check-output-box .output-title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #1e40af;
+}
+
+.check-output-box .output-content {
+  padding-top: 0.5rem;
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+/* Check Copy Buttons */
+.check-copy-btn {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  border: none;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.625rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.check-copy-btn:hover {
+  background: linear-gradient(135deg, #0056b3, #003d82);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.check-copy-btn i {
+  width: 16px;
+  height: 16px;
+}
+
+/* Review Highlight Styles */
+.good-highlight {
+  background: linear-gradient(135deg, #d4edda, #c3e6cb);
+  color: #155724;
+  padding: 0.375rem 0.625rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  border-left: 4px solid #28a745;
+  margin: 0.25rem;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(40, 167, 69, 0.1);
+}
+
+.error-highlight {
+  background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+  color: #721c24;
+  padding: 0.375rem 0.625rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: #dc3545;
+  border-left: 4px solid #dc3545;
+  margin: 0.25rem;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.1);
+}
+
+.neutral-highlight {
+  background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+  color: #856404;
+  padding: 0.375rem 0.625rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  border-left: 4px solid #ffc107;
+  margin: 0.25rem;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(255, 193, 7, 0.1);
+}
+
+/* Improved Answer Styling */
+.improved-content {
+  background: linear-gradient(135deg, #e8f5e8, #d4edda);
+  border-left: 5px solid #28a745;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  margin: 1rem 0;
+  box-shadow: 0 3px 10px rgba(40, 167, 69, 0.1);
+}
+
+.improved-content strong {
+  background: linear-gradient(135deg, #c3e6cb, #a3d9a5);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  font-weight: 700;
+  color: #155724;
+  box-shadow: 0 1px 3px rgba(40, 167, 69, 0.2);
+}
+
+/* Feedback Summary Styling */
+.feedback-content {
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  border-left: 5px solid #2196f3;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  margin: 1rem 0;
+  box-shadow: 0 3px 10px rgba(33, 150, 243, 0.1);
+}
+
+.feedback-section {
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.strengths-section {
+  background: linear-gradient(135deg, #e8f5e8, #d4edda);
+  border-left: 4px solid #28a745;
+  margin-bottom: 1.5rem;
+}
+
+.improvements-section {
+  background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+  border-left: 4px solid #ffc107;
+  margin-bottom: 1.5rem;
+}
+
+.score-section {
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  border-left: 4px solid #2196f3;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+}
+
+/* Download Section */
+.download-section {
+  text-align: center;
+  margin: 3rem 0 2rem 0;
+  padding: 2rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Check Download Button */
+.check-download-btn {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 0.875rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(0, 123, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.check-download-btn:hover {
+  background: linear-gradient(135deg, #0056b3, #003d82);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.check-download-btn i {
+  width: 18px;
+  height: 18px;
+  margin-right: 0.5rem;
+}
+
+/* Check Disclaimer */
+.check-disclaimer {
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  border: 1px solid rgba(0, 123, 255, 0.2);
+  padding: 1.5rem;
+  border-radius: 0.875rem;
+  margin-top: 2rem;
+  box-shadow: 0 3px 10px rgba(0, 123, 255, 0.1);
+}
+
+.check-disclaimer p {
+  font-size: 0.9rem;
+  color: #1e40af;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Check Copy Notification */
+#checkCopyNotification {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  box-shadow: 0 10px 25px rgba(0, 123, 255, 0.3);
+}
+
+/* Mobile-first responsive design for Check Mode */
+/* Base styles for mobile */
+@media (max-width: 768px) {
+  .check-mode .navbar {
+    padding: 0 1rem;
+  }
+
+  .check-mode .nav-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+  }
+
+  .check-mode .nav-menu {
+    gap: 1rem;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+  }
+
+  .check-mode .nav-brand {
+    font-size: 1.4rem;
+    line-height: 1.2;
+  }
+
+  .check-mode .nav-link {
+    font-size: 0.9rem;
+    padding: 0.25rem 0;
+  }
+
+  .check-mode body {
+    padding-top: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .check-mode .nav-brand {
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+
+  .check-mode .nav-container {
+    padding: 0.5rem 0;
+  }
+
+  .check-mode .nav-menu {
+    gap: 0.75rem;
+  }
+
+  .check-mode .nav-link {
+    font-size: 0.85rem;
+  }
+}
+
+.check-main-box {
+  padding: 1.5rem 1rem;
+  margin-bottom: 2rem;
+}
+
+.check-heading {
+  font-size: 1.5rem;
+  padding: 1rem 1.5rem;
+}
+
+.check-output-box {
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.check-form {
+  gap: 1.5rem;
+}
+
+.check-form .form-label {
+  font-size: 1rem;
+}
+
+.check-textarea,
+.check-select {
+  padding: 0.875rem 1rem;
+  min-height: 100px;
+}
+
+.check-btn {
+  padding: 0.875rem 1.5rem;
+  font-size: 0.95rem;
+}
+
+.check-output-box .output-title {
+  font-size: 1.2rem;
+}
+
+.check-copy-btn {
+  padding: 0.5rem 0.875rem;
+  font-size: 0.85rem;
+}
+
+.check-download-btn {
+  padding: 0.875rem 1.5rem;
+  font-size: 0.95rem;
+}
+
+.feedback-section {
+  padding: 0.875rem;
+  margin: 1rem 0;
+}
+
+.score-section {
+  font-size: 1.1rem;
+  padding: 1.25rem;
+}
+
+.download-section {
+  margin: 2rem 0 1.5rem 0;
+  padding: 1.5rem 0;
+}
+
+.check-output-box .output-header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.check-output-box .output-actions {
+  width: 100%;
+  justify-content: space-between;
+}
+
+/* Tablet styles */
+@media (min-width: 768px) {
+  .check-main-box {
+    padding: 2rem 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .check-heading {
+    font-size: 1.8rem;
+    padding: 1.25rem 1.75rem;
+  }
+
+  .check-output-box {
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .check-form {
+    gap: 2rem;
+  }
+
+  .check-form .form-label {
+    font-size: 1.05rem;
+  }
+
+  .check-textarea,
+  .check-select {
+    padding: 1rem 1.125rem;
+    min-height: 110px;
+  }
+
+  .check-btn {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+
+  .check-output-box .output-title {
+    font-size: 1.3rem;
+  }
+
+  .check-copy-btn {
+    padding: 0.625rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .check-download-btn {
+    padding: 0.95rem 1.75rem;
+    font-size: 1rem;
+  }
+
+  .feedback-section {
+    padding: 1rem;
+    margin: 1.25rem 0;
+  }
+
+  .score-section {
+    font-size: 1.15rem;
+    padding: 1.375rem;
+  }
+
+  .download-section {
+    margin: 2.5rem 0 2rem 0;
+    padding: 2rem 0;
+  }
+
+  .check-output-box .output-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .check-output-box .output-actions {
+    width: auto;
+    justify-content: flex-end;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 1024px) {
+  .check-main-box {
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .check-heading {
+    font-size: 2.2rem;
+    padding: 1.5rem 2rem;
+  }
+
+  .check-underline {
+    width: 90px;
+    height: 4px;
+    margin-bottom: 25px;
+  }
+
+  .check-output-box {
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .check-form {
+    gap: 2rem;
+  }
+
+  .check-form .form-label {
+    font-size: 1.1rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .check-textarea,
+  .check-select {
+    padding: 1rem 1.2rem;
+    min-height: 120px;
+    font-size: 1.05rem;
+    border-radius: 0.8rem;
+  }
+
+  .check-btn {
+    padding: 1.2rem 2.5rem;
+    font-size: 1.1rem;
+    border-radius: 0.8rem;
+    margin-top: 1.2rem;
+  }
+
+  .check-output-box .output-title {
+    font-size: 1.4rem;
+  }
+
+  .check-output-box .output-content {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    padding-top: 0.6rem;
+  }
+
+  .check-copy-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+    border-radius: 0.6rem;
+  }
+
+  .check-download-btn {
+    padding: 1rem 2rem;
+    font-size: 1.05rem;
+    border-radius: 0.8rem;
+  }
+
+  .feedback-section {
+    padding: 1.2rem;
+    margin: 1.5rem 0;
+    border-radius: 0.8rem;
+  }
+
+  .score-section {
+    font-size: 1.2rem;
+    padding: 1.5rem;
+    border-radius: 0.8rem;
+  }
+
+  .download-section {
+    margin: 3rem 0 2rem 0;
+    padding: 2rem 0;
+  }
+
+  .good-highlight,
+  .error-highlight,
+  .neutral-highlight {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.95rem;
+    border-radius: 0.4rem;
+  }
+
+  .improved-content,
+  .feedback-content {
+    padding: 1.5rem;
+    border-radius: 0.8rem;
+    margin: 1.2rem 0;
+  }
+
+  .check-disclaimer {
+    padding: 1.5rem;
+    border-radius: 0.8rem;
+    margin-top: 2rem;
+  }
+
+  .check-disclaimer p {
+    font-size: 0.95rem;
+  }
+}
+
+/* Mode Toggle Styles */
+.mode-toggle {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem 1rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Animation for mode transitions */
+.check-mode {
+  animation: modeTransition 0.5s ease-in-out;
+}
+
+@keyframes modeTransition {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Check mode specific page transitions */
+.check-mode.page-transition-out {
+  animation: checkPageSlideOut 0.4s ease-in-out forwards;
+}
+
+.check-mode.page-transition-in {
+  animation: checkPageSlideIn 0.4s ease-in-out forwards;
+}
+
+@keyframes checkPageSlideOut {
+  0% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    background: linear-gradient(135deg, #007bff 0%, #74c0fc 100%);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(50px) scale(0.95);
+    background: linear-gradient(135deg, #28a745 0%, #A7F3D0 100%);
+  }
+}
+
+@keyframes checkPageSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px) scale(0.95);
+    background: linear-gradient(135deg, #28a745 0%, #A7F3D0 100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    background: linear-gradient(135deg, #007bff 0%, #74c0fc 100%);
+  }
+}
+
+/* Enhanced blue theme pulse for check mode */
+.check-mode .mode-pulse {
+  animation: checkModePulse 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes checkModePulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 8px 32px rgba(0, 123, 255, 0.1);
+  }
+
+  25% {
+    transform: scale(1.02);
+    box-shadow: 0 12px 40px rgba(40, 167, 69, 0.2);
+  }
+
+  75% {
+    transform: scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 123, 255, 0.3);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 8px 32px rgba(0, 123, 255, 0.1);
+  }
+}
+
+/* Enhanced hover effects for check mode */
+.check-output-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.15);
+  transition: all 0.3s ease;
+}

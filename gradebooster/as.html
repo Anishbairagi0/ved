@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ṽed Navbar</title>
+
+  <!-- Fonts in use -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=WDXL+Lubrifont+JP+N&family=WDXL+Lubrifont+SC&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root { --primary: #7c3aed; --primary-light: #a78bfa; --bg: #eef2ff; --card-bg: #fff; --text: #1f2937; --subtext: #6b7280; --button: #8b5cf6; --button-hover: #7c3aed; --output-bg: #f4f4ff; --bg-primary: #7C3AED; --bg-secondary: #059669; --bg-gradient: linear-gradient(135deg, #06D6A0 0%, #118AB2 50%, #073B4C 100%); --bg-card: #fff; --bg-form: #f8fafc; --text-primary: #fff; --text-secondary: #1a202c; --text-muted: #718096; --text-form: #2d3748; --accent-primary: #3182ce; --accent-secondary: #2c5aa0; --accent-success: #38a169; --accent-purple: #7C3AED; --accent-teal: #319795; --accent-orange: #ed8936; --accent-pink: #e53e3e; --border-color: #e2e8f0; --border-focus: #3182ce; --hover-bg: #f7fafc; --radius: 1.25rem; }
+    body { margin: 0; font-family: 'Inter', 'Baloo Da 2', sans-serif; background: var(--bg); }
+    .navbar { position: fixed; top: 0; left: 0; right: 0; background: #7C3AED; z-index: 1000; padding: 0 2rem; transition: all .3s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; }
+    .nav-brand { font-size: 1.75rem; font-weight: 700; color: #fff; text-decoration: none; transition: color .3s ease; font-family: 'Baloo Da 2', cursive; }
+    .nav-brand:hover { color: #3182ce; }
+    .nav-menu { display: flex; list-style: none; gap: 2rem; align-items: center; margin: 0; padding: 0; }
+    .nav-item { position: relative; }
+    .nav-link { color: #fffc; text-decoration: none; font-weight: 500; transition: color .3s ease; padding: .5rem 0; }
+    .nav-link:hover { color: #fff; }
+    .dropdown { position: relative; }
+    .dropdown-content { position: absolute; top: 100%; left: 0; background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); min-width: 200px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all .3s ease; z-index: 100; margin-top: .5rem; }
+    .dropdown:hover .dropdown-content { opacity: 1; visibility: visible; transform: translateY(0); }
+    .dropdown-item { padding: .75rem 1rem; color: var(--text-secondary); text-decoration: none; display: block; transition: background-color .3s ease; border-bottom: 1px solid var(--border-color); }
+    .dropdown-item:last-child { border-bottom: none; }
+    .dropdown-item:hover { background-color: var(--hover-bg); color: var(--text-secondary); }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="#" class="nav-brand">Ṽed</a>
+    <ul class="nav-menu" id="navMenu">
+      <li class="nav-item">
+        <a href="../index.html" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a href="#" class="nav-link">Tools</a>
+        <div class="dropdown-content">
+          <a href="../Concept_Explainer/index.html" class="dropdown-item">Concept Explainer</a>
+          <a href="../Concept_Comparer/index.html" class="dropdown-item">Concept Comparison</a>
+          <a href="../quiz2/index.html" class="dropdown-item">Quiz Generator</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a href="../index.html#about" class="nav-link">About</a>
+      </li>
+      <li class="nav-item">
+        <a href="../index.html#contact" class="nav-link">Contact</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div style="padding-top:80px;">
+  <!-- Placeholder for page content -->
+  <p style="padding: 2rem;">This is a placeholder page under the navbar. Your content goes here.</p>
+</div>
+
+</body>
+</html>
