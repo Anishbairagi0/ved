@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ved GradeBooster — Check My Answer Tool</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="check.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400..800&display=swap" rel="stylesheet">
+</head>
+
+<body class="check-mode">
+  <!-- Top Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">Ṽed</a>
+      <ul class="nav-menu" id="navMenu">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link">Tools</a>
+          <div class="dropdown-content">
+            <a href="index.html" class="dropdown-item">Grade Booster</a>
+            <a href="#" class="dropdown-item">Concept Explainer</a>
+            <a href="#" class="dropdown-item">Concept Comparison</a>
+            <a href="#" class="dropdown-item">Quiz Generator</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Mode Toggle Navigation -->
+  <div class="mode-toggle">
+    <div class="toggle-container">
+      <div class="mode-toggle-switch">
+        <input type="checkbox" id="modeToggle" class="mode-toggle-input" checked>
+        <label for="modeToggle" class="mode-toggle-label">
+          <span class="mode-toggle-slider">
+            <span class="mode-icon generate-icon">
+              <i data-feather="edit-3"></i>
+              <span>Generate</span>
+            </span>
+            <span class="mode-icon check-icon">
+              <i data-feather="check-circle"></i>
+              <span>Check</span>
+            </span>
+          </span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <!-- Main Input Section -->
+      <div class="main-box check-main-box">
+        <h1 class="ved-heading check-heading">VED GradeBooster<br><small style="font-size: 0.6em; opacity: 0.8;">Check
+            Mine</small></h1>
+        <div class="ved-heading-underline check-underline"></div>
+
+        <form id="checkForm" class="check-form">
+          <!-- Question Input -->
+          <div class="form-group">
+            <label for="checkQuestion" class="form-label">Enter the Question</label>
+            <textarea id="checkQuestion" name="question" class="form-textarea check-textarea" rows="4"
+              placeholder="Type the exam question here..." required></textarea>
+          </div>
+
+          <!-- User's Answer Input -->
+          <div class="form-group">
+            <label for="userAnswer" class="form-label">Enter Your Answer</label>
+            <textarea id="userAnswer" name="userAnswer" class="form-textarea check-textarea" rows="6"
+              placeholder="Type your answer here for review..." required></textarea>
+          </div>
+
+          <!-- Grade Level -->
+          <div class="form-group">
+            <label for="checkGradeLevel" class="form-label">Grade Level</label>
+            <select id="checkGradeLevel" name="gradeLevel" class="form-select check-select" required>
+              <option value="">Select Grade Level</option>
+              <option value="primary">Primary (1-5)</option>
+              <option value="middle">Middle School (6-8)</option>
+              <option value="secondary">Secondary (9-10)</option>
+              <option value="senior">Senior Secondary (11-12)</option>
+              <option value="undergraduate">Undergraduate</option>
+              <option value="postgraduate">Postgraduate</option>
+            </select>
+          </div>
+
+          <!-- Check Button -->
+          <button type="submit" class="check-btn" id="checkBtn">
+            <span class="btn-text">Check My Answer</span>
+            <div class="loading-spinner" id="checkLoadingSpinner" style="display: none;">
+              <div class="spinner-dot"></div>
+              <div class="spinner-dot"></div>
+              <div class="spinner-dot"></div>
+            </div>
+          </button>
+        </form>
+      </div>
+
+      <!-- Review Output Section -->
+      <div class="check-output-section" id="checkOutputSection" style="display: none;">
+        <!-- Original Answer with Review -->
+        <div class="output-box check-output-box">
+          <div class="output-header">
+            <h3 class="output-title">Original Answer (Reviewed)</h3>
+            <div class="output-actions">
+              <button class="copy-btn check-copy-btn" onclick="copyReviewContent('originalReview')">
+                <i data-feather="copy"></i>
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="output-content check-content" id="originalReview">
+            <p class="output-placeholder">Your answer with review highlights will appear here...</p>
+          </div>
+        </div>
+
+        <!-- Improved Version -->
+        <div class="output-box check-output-box">
+          <div class="output-header">
+            <h3 class="output-title">Improved Version</h3>
+            <div class="output-actions">
+              <span class="word-count" id="improvedAnswerWordCount">0 words</span>
+              <button class="copy-btn check-copy-btn" onclick="copyReviewContent('improvedAnswer')">
+                <i data-feather="copy"></i>
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="output-content check-content" id="improvedAnswer">
+            <p class="output-placeholder">The improved version of your answer will appear here...</p>
+          </div>
+        </div>
+
+        <!-- Feedback Summary -->
+        <div class="output-box check-output-box">
+          <div class="output-header">
+            <h3 class="output-title">Feedback Summary</h3>
+            <div class="output-actions">
+              <button class="copy-btn check-copy-btn" onclick="copyReviewContent('feedbackSummary')">
+                <i data-feather="copy"></i>
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="output-content check-content" id="feedbackSummary">
+            <p class="output-placeholder">Detailed feedback and suggestions will appear here...</p>
+          </div>
+        </div>
+
+        <!-- Download Button -->
+        <div class="download-section">
+          <button class="download-btn check-download-btn" id="downloadReviewBtn" onclick="downloadReviewAsText()">
+            <i data-feather="download"></i>
+            Download Review Report
+          </button>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer check-disclaimer">
+          <p>Review results are AI-generated and should be used as guidance. Final evaluation depends on your teacher
+            and exam criteria.</p>
+        </div>
+      </div>
+
+      <!-- Error Section -->
+      <div class="error-section" id="checkErrorSection" style="display: none;">
+        <div class="error-box">
+          <h3 class="error-title">Something went wrong</h3>
+          <p class="error-message" id="checkErrorMessage"></p>
+          <button class="retry-btn" onclick="hideCheckError()">Try Again</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copy Success Notification -->
+    <div class="copy-notification" id="checkCopyNotification">
+      <div class="notification-content">
+        <i data-feather="check-circle"></i>
+        <span>Copied to clipboard!</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <p class="footer-text">Built by Anish Bairagi</p>
+    </div>
+  </footer>
+
+  <!-- Feather Icons -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
+  <script src="check.js"></script>
+</body>
+
+</html>
