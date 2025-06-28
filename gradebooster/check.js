@@ -1,3 +1,23 @@
+fetch(
+    "https://opensheet.vercel.app/1AkEjmMgbF0zAX6hfWgm6_TYk-5gBqdWVltc_6er9SBA/Sheet1"
+  )
+    .then((e) => e.json())
+    .then((e) => {
+      if (!e || !e.length) return;
+      const n = e[0];
+      if ("TRUE" !== n.shutdown) {
+        if ("TRUE" === n.showBanner) {
+          const e = document.createElement("div");
+          (e.id = "simple-banner"),
+            (e.style =
+              "\n          position: fixed;\n          bottom: 20px;\n          right: 20px;\n          background-color: #fef08a;\n          color: #1a202c;\n          padding: 1rem 1.25rem;\n          border-radius: 10px;\n          box-shadow: 0 4px 12px rgba(0,0,0,0.15);\n          font-family: sans-serif;\n          max-width: 300px;\n          z-index: 9999;\n        "),
+            (e.innerHTML = `\n          <div style="font-weight: bold;">${n.bannerHeading}</div>\n          <div>${n.bannerMessage}</div>\n          <div onclick="this.parentElement.remove()" style="\n            position: absolute;\n            top: 6px;\n            right: 10px;\n            cursor: pointer;\n            font-weight: bold;\n            font-size: 1.1rem;\n          ">×</div>\n        `),
+            document.body.appendChild(e);
+        }
+      } else
+        document.body.innerHTML =
+          '\n          <div style="display:flex;justify-content:center;align-items:center;height:100vh;text-align:center;font-family:sans-serif;padding:2rem;background:#111827;color:#f3f4f6;">\n            <div>\n              <h1 style="font-size:2rem;margin-bottom:1rem;">🛠️ Under Maintenance</h1>\n              <p style="font-size:1.2rem;">Our tool is currently undergoing maintenance.<br>Please check back shortly.</p><br><strong>~Anish Bairagi</strong>\n            </div>\n          </div>';
+    });
 
 // Mode toggle functionality for check page with enhanced animations
 document.addEventListener('DOMContentLoaded', function() {
