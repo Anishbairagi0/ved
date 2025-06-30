@@ -105,22 +105,7 @@ class QuizApp {
     e.classList.remove("hidden"), this.generateQuizQuestions();
 
     // Add motivational text
-    const motivationalText = document.createElement('div');
-    motivationalText.style.cssText = `
-      position: absolute;
-      bottom: 20%;
-      left: 50%;
-      transform: translateX(-50%);
-      color: white;
-      font-size: 1.2rem;
-      text-align: center;
-      font-weight: 500;
-      opacity: 0.9;
-      max-width: 90%;
-    `;
-    motivationalText.innerHTML = '🏆 Get over 84.4% and your name will show up as a quiz star! 🌟';
-    e.appendChild(motivationalText);
-
+   
     let n = 3;
     const s = setInterval(() => {
       n > 0
