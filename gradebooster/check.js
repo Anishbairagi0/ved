@@ -160,7 +160,7 @@ Student's Answer: ${userAnswer}`;
 }
 
 // Make.com webhook URL - using same endpoint as main tool
-const CHECK_WEBHOOK_URL = "https://hook.eu2.make.com/62ubza5bw3qs8q2li7ln8c2rkevo9u7q";
+const CHECK_WEBHOOK_URL = "https://hook.eu2.make.com/0g24pj8gohzc2wls1c1oey8sodu2lyi1";
 
 // Generate review using Make.com webhook
 async function generateReview(userMessage) {
