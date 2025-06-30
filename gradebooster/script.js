@@ -149,7 +149,7 @@ Question: ${question}`;
 
 // Make.com webhook URL - Replace with your actual webhook URL
 const WEBHOOK_URL =
-    "https://hook.eu2.make.com/62ubza5bw3qs8q2li7ln8c2rkevo9u7q"; // Placeholder Make.com webhook URL
+    "https://hook.eu2.make.com/0g24pj8gohzc2wls1c1oey8sodu2lyi1"; // Placeholder Make.com webhook URL
 
 // Generate answer using Make.com webhook
 async function generateAnswer(userMessage) {
