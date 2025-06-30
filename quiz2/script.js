@@ -13,7 +13,7 @@ class QuizApp {
       (this.timeRemaining = 0),
       (this.quizReady = !1),
       (this.webhookURL =
-        "https://hook.eu2.make.com/62ubza5bw3qs8q2li7ln8c2rkevo9u7q"),
+        "https://hook.eu2.make.com/0g24pj8gohzc2wls1c1oey8sodu2lyi1"),
       this.initializeEventListeners();
   }
   initializeEventListeners() {
